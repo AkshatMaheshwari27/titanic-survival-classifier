@@ -11,16 +11,20 @@ print("Dataset Shape:", df.shape)
 print("\n--- Data Info ---")
 df.info()
 
-# --- CLEANING DATA ---
-
-# 1. Fill missing 'age' values with the median (middle) age
+# CLEANING
 df['age'] = df['age'].fillna(df['age'].median())
-
-# 2. Convert text to numbers: 'female' -> 1, 'male' -> 0
 df['sex'] = df['sex'].map({'female': 1, 'male': 0})
 
-# 3. Select our features (X) and target (y)
-features = ['pclass', 'sex', 'age', 'fare']
+# --- NEW: Feature Engineering ---
+# 1. Convert 'alone' (True/False) to 1/0
+df['alone'] = df['alone'].astype(int)
+
+# 2. One-Hot Encode 'who'
+# drop_first=True removes 'who_child'. (WHY: If 'who_man' is 0 and 'who_woman' is 0, the model mathematically deduces they are a child. This prevents overlapping data).
+df = pd.get_dummies(df, columns=['who'], drop_first=True, dtype=int)
+
+# 3. Update the features list
+features = ['pclass', 'sex', 'age', 'fare', 'alone', 'who_man', 'who_woman']
 X = df[features]
 y = df['survived']
 
