@@ -61,3 +61,24 @@ print(f"\nModel Accuracy: {accuracy * 100:.2f}%")
 print("\nConfusion Matrix:")
 matrix = confusion_matrix(y_test, predictions)
 print(matrix)
+
+from sklearn.ensemble import RandomForestClassifier
+
+# --- COMPARING A SECOND MODEL (RANDOM FOREST) ---
+
+print("\n--- RANDOM FOREST MODEL ---")
+
+# 1. Create the model (we use random_state so the trees grow the exact same way every time)
+rf_model = RandomForestClassifier(random_state=42)
+
+# 2. FIT (Study)
+rf_model.fit(X_train, y_train)
+
+# 3. PREDICT (Take the exam)
+rf_predictions = rf_model.predict(X_test)
+
+# 4. Evaluate
+rf_accuracy = accuracy_score(y_test, rf_predictions)
+print(f"Random Forest Accuracy: {rf_accuracy * 100:.2f}%")
+print("Random Forest Confusion Matrix:")
+print(confusion_matrix(y_test, rf_predictions))
