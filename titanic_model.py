@@ -48,3 +48,16 @@ predictions = model.predict(X_test)
 # Print a sneak peek of the first 10 predictions vs the actual answers
 print(f"\nFirst 10 predictions: {predictions[:10]}")
 print(f"First 10 actuals:     {y_test.values[:10]}")
+
+from sklearn.metrics import accuracy_score, confusion_matrix
+
+# --- EVALUATING THE MODEL ---
+
+# 1. Calculate percentage of correct guesses
+accuracy = accuracy_score(y_test, predictions)
+print(f"\nModel Accuracy: {accuracy * 100:.2f}%")
+
+# 2. Generate the Confusion Matrix
+print("\nConfusion Matrix:")
+matrix = confusion_matrix(y_test, predictions)
+print(matrix)
