@@ -1,5 +1,10 @@
 import pandas as pd
 import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.ensemble import RandomForestClassifier
+
 
 # 1. Load the dataset from seaborn
 df = sns.load_dataset("titanic")
@@ -32,9 +37,6 @@ y = df['survived']
 print("\n--- Cleaned Features Info ---")
 X.info()
 
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-
 # --- TRAINING THE MODEL ---
 
 # 1. Split the data (80% for studying, 20% for the final exam)
@@ -53,7 +55,6 @@ predictions = model.predict(X_test)
 print(f"\nFirst 10 predictions: {predictions[:10]}")
 print(f"First 10 actuals:     {y_test.values[:10]}")
 
-from sklearn.metrics import accuracy_score, confusion_matrix
 
 # --- EVALUATING THE MODEL ---
 
@@ -66,7 +67,6 @@ print("\nConfusion Matrix:")
 matrix = confusion_matrix(y_test, predictions)
 print(matrix)
 
-from sklearn.ensemble import RandomForestClassifier
 
 # --- COMPARING A SECOND MODEL (RANDOM FOREST) ---
 
